@@ -100,7 +100,7 @@ class ColorDataItemAdapter(_colorJson: ColorJson) : RecyclerView.Adapter<Recycle
 
     companion object {
 
-        val ADS_APPEAR_IN_ROW = 3
+        val ADS_APPEAR_IN_ROW = 0
 
         val TYPE_CONTENT = 0
         val TYPE_ADS = 1
