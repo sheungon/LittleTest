@@ -38,14 +38,15 @@ class MainActivity : AppCompatActivity() {
         Observable.create(ObservableOnSubscribe<ColorJson> { emitter ->
             val am = getAssets()
             val jsonInputStream = am.open("colors.json")
-            val colorJson = Gson().fromJson(InputStreamReader(jsonInputStream), ColorJson::class.java)
+            val colorJson =
+                Gson().fromJson(InputStreamReader(jsonInputStream), ColorJson::class.java)
             emitter.onNext(colorJson)
             emitter.onComplete()
         })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { colorJson ->
-                    dataBinding?.colorJson = colorJson
-                }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { colorJson ->
+                dataBinding?.colorJson = colorJson
+            }
     }
 }

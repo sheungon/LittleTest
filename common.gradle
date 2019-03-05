@@ -16,12 +16,13 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/LGPL2.1'
         exclude 'META-INF/MANIFEST.MF'
+        exclude 'META-INF/main.kotlin_module'
     }
 
     compileOptions {
         encoding "UTF-8"
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     // continue build even found lint error

@@ -12,31 +12,42 @@ import android.support.v7.widget.RecyclerView
  */
 
 @BindingMethods(
-        BindingMethod(type = RecyclerView::class, attribute = "android:setAdapter", method = "setAdapter")
+    BindingMethod(
+        type = RecyclerView::class,
+        attribute = "android:setAdapter",
+        method = "setAdapter"
+    )
 )
 object RecyclerViewBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["bind:nestedScrollingEnabled"])
-    fun setNestedScrollingEnabled(recyclerView: RecyclerView,
-                                  enabled: Boolean) {
+    fun setNestedScrollingEnabled(
+        recyclerView: RecyclerView,
+        enabled: Boolean
+    ) {
         ViewCompat.setNestedScrollingEnabled(recyclerView, enabled)
     }
 
     @JvmStatic
-    @BindingAdapter(value = [
-        "bind:setLayoutManagerOrientation",
-        "bind:setLayoutManagerReverseLayout",
-        "bind:setAutoMeasureEnabled",
-        "bind:setNestedScrollingEnabled"],
-            requireAll = false)
-    fun setLayoutManager(recyclerView: RecyclerView,
-                         orientation: Int,
-                         reverseLayout: Boolean?,
-                         autoMeasureEnabled: Boolean?,
-                         nestedScrollingEnabled: Boolean?) {
+    @BindingAdapter(
+        value = [
+            "bind:setLayoutManagerOrientation",
+            "bind:setLayoutManagerReverseLayout",
+            "bind:setAutoMeasureEnabled",
+            "bind:setNestedScrollingEnabled"],
+        requireAll = false
+    )
+    fun setLayoutManager(
+        recyclerView: RecyclerView,
+        orientation: Int,
+        reverseLayout: Boolean?,
+        autoMeasureEnabled: Boolean?,
+        nestedScrollingEnabled: Boolean?
+    ) {
 
-        val layoutManager = LinearLayoutManager(recyclerView.context, orientation, reverseLayout == true)
+        val layoutManager =
+            LinearLayoutManager(recyclerView.context, orientation, reverseLayout == true)
         if (autoMeasureEnabled != null) {
             layoutManager.isAutoMeasureEnabled = autoMeasureEnabled
         }

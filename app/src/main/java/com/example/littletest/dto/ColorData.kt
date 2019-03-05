@@ -9,14 +9,16 @@ import android.support.annotation.Keep
  * @author John
  */
 @Keep
-class ColorData(val color: String,
-                val code: ColorCode) : Parcelable {
+class ColorData(
+    val color: String,
+    val code: ColorCode
+) : Parcelable {
 
     fun name() = color
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readParcelable<ColorCode>(ColorCode::class.java.classLoader)
+        source.readString(),
+        source.readParcelable<ColorCode>(ColorCode::class.java.classLoader)
     )
 
     override fun describeContents() = 0

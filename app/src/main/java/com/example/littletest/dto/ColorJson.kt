@@ -11,7 +11,7 @@ import android.support.annotation.Keep
 class ColorJson(val colors: List<ColorData>) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.createTypedArrayList(ColorData.CREATOR)
+        source.createTypedArrayList(ColorData.CREATOR)
     )
 
     override fun describeContents() = 0

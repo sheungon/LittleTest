@@ -10,8 +10,10 @@ import java.util.*
  * An object to store color codes
  * @author John
  */
-class ColorCode(val rgba: IntArray,
-                val hex: String) : Parcelable {
+class ColorCode(
+    val rgba: IntArray,
+    val hex: String
+) : Parcelable {
 
     fun rgbaToColor(): Int = try {
         Color.argb(rgba[3], rgba[0], rgba[1], rgba[2])
@@ -28,8 +30,8 @@ class ColorCode(val rgba: IntArray,
     }
 
     constructor(source: Parcel) : this(
-            source.createIntArray(),
-            source.readString()
+        source.createIntArray(),
+        source.readString()
     )
 
     override fun describeContents() = 0

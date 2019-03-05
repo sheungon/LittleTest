@@ -20,22 +20,21 @@ class STApplication : Application() {
         instance = this
         super.onCreate()
 
-        Log.setDefaultLogTag(LOG_TAG)
-        Log.setLogLevel(if (BuildConfig.DEBUG) Log.VERBOSE else Log.NONE)
+        Log.defaultLogTag = LOG_TAG
+        Log.logLevel = if (BuildConfig.DEBUG) Log.VERBOSE else Log.NONE
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(Log.isDebuggable())
+            WebView.setWebContentsDebuggingEnabled(Log.isDebuggable)
         }
 
         initComponent()
-
     }
 
     private fun initComponent() {
 
         appComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(instance))
-                .build()
+            .appModule(AppModule(instance))
+            .build()
         appComponent.inject(this)
     }
 
