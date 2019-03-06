@@ -7,24 +7,65 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <import type="android.support.v7.widget.LinearLayoutManager"/>
 
         <variable
-            name="colorJson"
-            type="com.example.littletest.dto.ColorJson"/>
+            name="viewModel"
+            type="com.example.littletest.main.MainViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:setLayoutManagerOrientation="@{LinearLayoutManager.VERTICAL}"
-            app:setLayoutManagerReverseLayout="@{false}"
-            app:setColorJson="@{colorJson}"
-            tools:listitem="@layout/list_item_content" />
+            android:layout_height="match_parent">
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text='@{"Total Price: $" + viewModel.totalPrice}'
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_good"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Total Price: $0.0"/>
+
+            <Button
+                android:id="@+id/btn_add_good"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:onClick="@{() -> viewModel.addGood()}"
+                android:text="+"
+                android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/total_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/total_price"/>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:isRefreshing="@{viewModel.isLoading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/total_price"
+                app:onRefresh="@{() -> viewModel.onRefresh()}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adapter="@{viewModel.adapter}"
+                    app:setLayoutManagerOrientation="@{LinearLayoutManager.VERTICAL}"
+                    app:setLayoutManagerReverseLayout="@{false}"
+                    tools:listitem="@layout/list_item_good"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -5,25 +5,25 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.littletest.R
 import com.example.littletest.databinding.ActivityMainBinding
-import com.example.littletest.dto.ColorJson
-import com.google.gson.Gson
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.io.InputStreamReader
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
     var dataBinding: ActivityMainBinding? = null
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        AndroidInjection.inject(this)
 
-        loadData()
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        dataBinding?.viewModel = viewModel
+
+        viewModel.onCreate()
     }
 
     override fun onDestroy() {
@@ -31,22 +31,5 @@ class MainActivity : AppCompatActivity() {
 
         dataBinding?.unbind()
         dataBinding = null
-    }
-
-    fun loadData() {
-
-        Observable.create(ObservableOnSubscribe<ColorJson> { emitter ->
-            val am = getAssets()
-            val jsonInputStream = am.open("colors.json")
-            val colorJson =
-                Gson().fromJson(InputStreamReader(jsonInputStream), ColorJson::class.java)
-            emitter.onNext(colorJson)
-            emitter.onComplete()
-        })
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { colorJson ->
-                dataBinding?.colorJson = colorJson
-            }
     }
 }

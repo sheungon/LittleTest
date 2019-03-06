@@ -1,4 +1,4 @@
-package com.example.littletest.scope
+package com.example.sdk.scope
 
 import javax.inject.Scope
 

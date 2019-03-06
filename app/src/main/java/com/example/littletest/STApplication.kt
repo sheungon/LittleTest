@@ -1,19 +1,18 @@
 package com.example.littletest
 
-import android.app.Application
 import android.os.Build
 import android.webkit.WebView
-import com.example.littletest.app.AppComponent
-import com.example.littletest.app.AppModule
-import com.example.littletest.app.DaggerAppComponent
+import com.example.sdk.SDK
 import com.sotwtm.util.Log
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
 /**
  * @author John
  */
-class STApplication : Application() {
+class STApplication : DaggerApplication() {
 
-    lateinit var appComponent: AppComponent
+    lateinit var appComponent: STApplicationComponent
         private set
 
     override fun onCreate() {
@@ -26,17 +25,16 @@ class STApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(Log.isDebuggable)
         }
-
-        initComponent()
     }
 
-    private fun initComponent() {
-
-        appComponent = DaggerAppComponent.builder()
-            .appModule(AppModule(instance))
-            .build()
-        appComponent.inject(this)
-    }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication>
+     = DaggerSTApplicationComponent.builder()
+        .application(this)
+        .sdkComponent(SDK.init(this).sdkComponent)
+        .build()
+        .also {
+            appComponent = it
+        }
 
     companion object {
 

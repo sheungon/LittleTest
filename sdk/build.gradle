@@ -1,62 +1,35 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: '../common.gradle'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion compile_sdk_version
 
+
     defaultConfig {
-        applicationId "com.example.littletest"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion target_sdk_version
-        versionCode app_version_code
-        versionName app_version_name
-    }
-    buildTypes {
-        debug {
-            debuggable true
-            jniDebuggable true
-            zipAlignEnabled false
-            minifyEnabled false
-            useProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            testCoverageEnabled true
-        }
-        release {
-            debuggable false
-            jniDebuggable false
-            zipAlignEnabled true
-            minifyEnabled true
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    /*
-    * To enable Android Data Binding Library
-    * See, https://developer.android.com/topic/libraries/data-binding/index.html
-    * */
-    dataBinding {
-        enabled = true
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
 dependencies {
-    api project(":sdk")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-$versions.kotlin_env:$versions.kotlin_plugin"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutines"
 
     implementation "com.android.support:design:$versions.support_lib"
-    implementation "com.android.support:cardview-v7:$versions.support_lib"
-    implementation "com.android.support.constraint:constraint-layout:$versions.constranint_layout"
-
-    implementation "com.yqritc:recyclerview-flexibledivider:$versions.flexiable_divider"
-    implementation "com.squareup.picasso:picasso:$versions.picasso"
 
     implementation "com.google.dagger:dagger:$versions.dagger_2"
     implementation "com.google.dagger:dagger-android:$versions.dagger_2"
