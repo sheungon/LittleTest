@@ -2,6 +2,7 @@ package com.example.sdk.api
 
 import com.example.sdk.model.Good
 import com.example.sdk.utils.sortByPrice
+import com.sotwtm.util.Log
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -9,6 +10,8 @@ import kotlin.random.Random
 class GoodService {
 
     fun getGoodList(start: Int, end: Int): List<Good> {
+
+        Log.v("Start getting good [$start, $end]")
 
         val list = ArrayList<Good>()
 

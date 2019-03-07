@@ -86,6 +86,7 @@ constructor(
         goodList.getOrNull(position)
 
     fun onClickGood(good: Good, checked: Boolean) {
+        Log.d("Checked [${good.name}] $checked")
         // TODO On Click good
     }
 
@@ -94,6 +95,7 @@ constructor(
     }
 
     fun clearSelected() {
+        Log.d("clearSelected")
         // TODO Clear all selected
     }
 

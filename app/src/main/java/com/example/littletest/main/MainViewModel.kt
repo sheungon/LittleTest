@@ -36,6 +36,7 @@ constructor(
     }
 
     fun onRefresh() {
+        Log.d("onRefresh")
         goodList.clear()
         loadData()
     }
@@ -58,6 +59,8 @@ constructor(
     }
 
     fun addGood() {
-        goodList.add(0, Good("A New ${random.nextInt(1000)}", random.nextInt(100) / 10f))
+        val newGood = Good("A New ${random.nextInt(1000)}", random.nextInt(100) / 10f)
+        goodList.add(0, newGood)
+        Log.d("Added new good: ${newGood.name}")
     }
 }
