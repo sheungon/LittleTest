@@ -4,7 +4,7 @@ import javax.inject.Scope
 
 /**
  * SDK scope
- * @author John
+ * @author John Tsai
  */
 
 @Scope

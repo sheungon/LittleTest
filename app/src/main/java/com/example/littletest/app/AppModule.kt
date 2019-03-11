@@ -10,7 +10,7 @@ import javax.inject.Qualifier
 
 /**
  * App module
- * @author John
+ * @author John Tsai
  */
 
 @Module

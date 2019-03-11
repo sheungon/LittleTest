@@ -1,23 +1,23 @@
 package com.example.littletest.databinding
 
-import android.databinding.BindingAdapter
-import android.databinding.BindingMethod
-import android.databinding.BindingMethods
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 /**
- * @author John
+ * @author John Tsai
  */
 
 @BindingMethods(
-    BindingMethod(type = SwipeRefreshLayout::class, attribute = "onRefresh", method = "setOnRefreshListener")
+    BindingMethod(type = androidx.swiperefreshlayout.widget.SwipeRefreshLayout::class, attribute = "onRefresh", method = "setOnRefreshListener")
 )
 object SwipeRefreshLayoutBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["isRefreshing"])
     fun setRefreshing(
-        view: SwipeRefreshLayout,
+        view: androidx.swiperefreshlayout.widget.SwipeRefreshLayout,
         isRefreshing: Boolean
     ) {
         view.isRefreshing = isRefreshing

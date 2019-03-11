@@ -5,7 +5,7 @@ import dagger.Module
 
 /**
  * All fragments with simple contributor are registered here
- * @author sheungon
+ * @author John Tsai
  * */
 @Module
 abstract class FragmentsContributorModule {

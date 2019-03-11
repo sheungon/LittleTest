@@ -8,7 +8,7 @@ import dagger.android.ContributesAndroidInjector
 
 /**
  * All activities contributor
- * @author sheungon
+ * @author John Tsai
  * */
 @Module
 abstract class AppActivitiesContributorModule {

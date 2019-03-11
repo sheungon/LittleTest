@@ -1,8 +1,8 @@
 package com.example.littletest.main
 
-import android.databinding.ObservableArrayList
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableFloat
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableFloat
 import com.example.littletest.STApplication
 import com.example.sdk.api.GoodService
 import com.example.sdk.model.Good
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 /**
  * View model for main page
- * @author John
+ * @author John Tsai
  */
 
 class MainViewModel

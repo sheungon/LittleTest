@@ -4,7 +4,7 @@ import android.app.Application
 
 /**
  * SDK
- * @author sheungon
+ * @author John Tsai
  * */
 object SDK {
 

@@ -1,12 +1,12 @@
 package com.example.littletest.databinding
 
-import android.databinding.BindingAdapter
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @author John
+ * @author John Tsai
  */
 
 object RecyclerViewBindingAdapter {
@@ -14,7 +14,7 @@ object RecyclerViewBindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["nestedScrollingEnabled"])
     fun setNestedScrollingEnabled(
-        recyclerView: RecyclerView,
+        recyclerView: androidx.recyclerview.widget.RecyclerView,
         enabled: Boolean
     ) {
         ViewCompat.setNestedScrollingEnabled(recyclerView, enabled)
@@ -30,14 +30,18 @@ object RecyclerViewBindingAdapter {
         requireAll = false
     )
     fun setLayoutManager(
-        recyclerView: RecyclerView,
+        recyclerView: androidx.recyclerview.widget.RecyclerView,
         orientation: Int,
         reverseLayout: Boolean?,
         autoMeasureEnabled: Boolean?,
         nestedScrollingEnabled: Boolean?
     ) {
         val layoutManager =
-            LinearLayoutManager(recyclerView.context, orientation, reverseLayout == true)
+            androidx.recyclerview.widget.LinearLayoutManager(
+                recyclerView.context,
+                orientation,
+                reverseLayout == true
+            )
         if (autoMeasureEnabled != null) {
             layoutManager.isAutoMeasureEnabled = autoMeasureEnabled
         }

@@ -1,11 +1,10 @@
 package com.example.littletest.main
 
 import android.content.Context
-import android.databinding.*
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.NO_ID
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.*
+import androidx.recyclerview.widget.RecyclerView.NO_ID
 import com.example.littletest.R
 import com.example.littletest.databinding.ListItemAdsBinding
 import com.example.littletest.databinding.ListItemGoodBinding
@@ -17,14 +16,14 @@ import java.util.*
 
 
 /**
- * @author sheungon
+ * @author John Tsai
  */
 class GoodItemAdapter
 constructor(
     context: Context,
     val goodList: ObservableArrayList<Good>,
     val totalPrice: ObservableFloat
-) : RecyclerView.Adapter<GoodItemAdapter.ItemVH>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<GoodItemAdapter.ItemVH>() {
 
     private val picasso: Picasso = Picasso.Builder(context).build()
 
@@ -105,7 +104,7 @@ constructor(
         adpater: GoodItemAdapter,
         open val dataBinding: ViewDataBinding
     ) :
-        RecyclerView.ViewHolder(dataBinding.root) {
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(dataBinding.root) {
         protected val adapterRef = WeakReference(adpater)
     }
 

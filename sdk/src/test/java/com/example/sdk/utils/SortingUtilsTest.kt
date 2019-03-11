@@ -8,6 +8,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
+/**
+ * Unit test for SortingUtils.kt
+ * @author John Tsai
+ * */
 class SortingUtilsTest {
 
     val goodList = ArrayList<Good>()

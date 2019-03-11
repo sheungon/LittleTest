@@ -1,8 +1,8 @@
 package com.example.littletest.main
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.littletest.R
 import com.example.littletest.databinding.ActivityMainBinding
 import dagger.android.AndroidInjection

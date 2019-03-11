@@ -8,7 +8,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
 /**
- * @author John
+ * @author John Tsai
  */
 class STApplication : DaggerApplication() {
 
