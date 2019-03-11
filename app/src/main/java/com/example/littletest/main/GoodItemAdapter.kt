@@ -82,14 +82,17 @@ constructor(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = TYPE_GOOD
+    override fun getItemViewType(position: Int): Int =
+        if (position % (ADS_APPEAR_IN_EVERY + 1) == ADS_APPEAR_IN_EVERY) TYPE_ADS else TYPE_GOOD
 
     override fun getItemId(position: Int): Long = getItem(position)?.id ?: NO_ID
 
-    override fun getItemCount(): Int = goodList.value?.size ?: 0
+    override fun getItemCount(): Int = (goodList.value?.size ?: 0).let { goodCount ->
+        goodCount + goodCount / ADS_APPEAR_IN_EVERY
+    }
 
     fun getItem(position: Int): Good? =
-        goodList.value?.getOrNull(position)
+        goodList.value?.getOrNull(position - position / (ADS_APPEAR_IN_EVERY + 1))
 
     fun onClickGood(good: Good, checked: Boolean) {
         Log.d("Checked [${good.name}] $checked")
@@ -137,7 +140,7 @@ constructor(
 
     companion object {
 
-        val ADS_APPEAR_IN_EVERY = 10
+        val ADS_APPEAR_IN_EVERY = 5
 
         private val TYPE_GOOD = 0
         private val TYPE_ADS = 1
