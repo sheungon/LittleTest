@@ -55,7 +55,7 @@ dependencies {
     implementation "androidx.cardview:cardview:$versions.xandroid_cardview"
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidx_constraintlayout"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.androidx_lifecycle"
-    implementation "androidx.lifecycle:lifecycle-runtime:$versions.androidx_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata:$versions.androidx_lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$versions.androidx_lifecycle"
 
     implementation "com.yqritc:recyclerview-flexibledivider:$versions.flexiable_divider"
@@ -94,5 +94,5 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4-rule-agent:$versions.power_mock"
     testImplementation "org.powermock:powermock-module-junit4-rule:$versions.power_mock"
     testImplementation "org.powermock:powermock-module-junit4:$versions.power_mock"
-    testImplementation "androidx.arch.core:core-testing:$versions.androidx_lifecycle"
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
 }

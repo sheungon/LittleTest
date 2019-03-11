@@ -1,18 +1,17 @@
 package com.example.littletest.main
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableFloat
+import androidx.lifecycle.MutableLiveData
 import com.example.littletest.STApplication
 import com.example.sdk.api.GoodService
 import com.example.sdk.model.Good
 import com.sotwtm.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * View model for main page
@@ -23,13 +22,14 @@ class MainViewModel
 @Inject
 constructor(
     application: STApplication,
+    activity: MainActivity,
     val goodService: GoodService
 ) {
-    val isLoading = ObservableBoolean(false)
+    val isLoading = MutableLiveData<Boolean>(false)
     val random = Random(Date().time)
-    val goodList: ObservableArrayList<Good> = ObservableArrayList()
-    val totalPrice = ObservableFloat(0f)
-    val adapter = GoodItemAdapter(application, goodList, totalPrice)
+    val goodList = MutableLiveData<MutableList<Good>>(ArrayList())
+    val totalPrice = MutableLiveData<Float>(0f)
+    val adapter = GoodItemAdapter(application, activity, goodList, totalPrice)
 
     fun onCreate() {
         loadData()
@@ -37,7 +37,8 @@ constructor(
 
     fun onRefresh() {
         Log.d("onRefresh")
-        goodList.clear()
+        goodList.value?.clear()
+        goodList.value = goodList.value
         loadData()
     }
 
@@ -45,22 +46,24 @@ constructor(
     fun loadData() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                isLoading.set(true)
-                val list = GlobalScope.async(Dispatchers.Default) {
+                isLoading.postValue(true)
+                val list = withContext(Dispatchers.Default) {
                     goodService.getGoodList(0, 20)
-                }.await()
-                goodList.addAll(list)
+                }
+                goodList.value?.addAll(list)
+                goodList.value = goodList.value
             } catch (e: Exception) {
                 Log.e("Error on load data", e)
             } finally {
-                isLoading.set(false)
+                isLoading.postValue(false)
             }
         }
     }
 
     fun addGood() {
         val newGood = Good("A New ${random.nextInt(1000)}", random.nextInt(100) / 10f)
-        goodList.add(0, newGood)
+        goodList.value?.add(0, newGood)
+        goodList.value = goodList.value
         Log.d("Added new good: ${newGood.name} $${newGood.price}")
     }
 }

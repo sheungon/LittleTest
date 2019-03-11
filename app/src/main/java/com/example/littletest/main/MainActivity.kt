@@ -1,8 +1,8 @@
 package com.example.littletest.main
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.example.littletest.R
 import com.example.littletest.databinding.ActivityMainBinding
 import dagger.android.AndroidInjection
@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
 
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        dataBinding?.lifecycleOwner = this
         dataBinding?.viewModel = viewModel
 
         viewModel.onCreate()

@@ -3,7 +3,13 @@ package com.example.littletest.main
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.*
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_ID
 import com.example.littletest.R
 import com.example.littletest.databinding.ListItemAdsBinding
@@ -21,16 +27,19 @@ import java.util.*
 class GoodItemAdapter
 constructor(
     context: Context,
-    val goodList: ObservableArrayList<Good>,
-    val totalPrice: ObservableFloat
-) : androidx.recyclerview.widget.RecyclerView.Adapter<GoodItemAdapter.ItemVH>() {
+    liveCycleOwner: LifecycleOwner,
+    private val goodList: LiveData<MutableList<Good>>,
+    private val totalPrice: MutableLiveData<Float>
+) : RecyclerView.Adapter<GoodItemAdapter.ItemVH>() {
 
     private val picasso: Picasso = Picasso.Builder(context).build()
 
     init {
-        setHasStableIds(false)
         // Do initialization here
-        goodList.addOnListChangedCallback(GoodListChangedListener(this))
+        setHasStableIds(false)
+        goodList.observe(liveCycleOwner, Observer<MutableList<Good>> {
+            notifyDataSetChanged()
+        })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVH {
@@ -79,10 +88,10 @@ constructor(
 
     override fun getItemId(position: Int): Long = getItem(position)?.id ?: NO_ID
 
-    override fun getItemCount(): Int = goodList.size
+    override fun getItemCount(): Int = goodList.value?.size ?: 0
 
     fun getItem(position: Int): Good? =
-        goodList.getOrNull(position)
+        goodList.value?.getOrNull(position)
 
     fun onClickGood(good: Good, checked: Boolean) {
         Log.d("Checked [${good.name}] $checked")
@@ -109,11 +118,11 @@ constructor(
     }
 
     class GoodVH(
-        adpater: GoodItemAdapter,
+        adapter: GoodItemAdapter,
         override val dataBinding: ListItemGoodBinding
-    ) : ItemVH(adpater, dataBinding) {
+    ) : ItemVH(adapter, dataBinding) {
         init {
-            dataBinding.checkboxGood.setOnCheckedChangeListener() { view, checked ->
+            dataBinding.checkboxGood.setOnCheckedChangeListener() { _, checked ->
                 adapterRef.get()?.let {
                     val good = it.getItem(adapterPosition) ?: return@setOnCheckedChangeListener
                     it.onClickGood(good, checked)
@@ -123,61 +132,9 @@ constructor(
     }
 
     class AdsVH(
-        adpater: GoodItemAdapter,
+        adapter: GoodItemAdapter,
         override val dataBinding: ListItemAdsBinding
-    ) : ItemVH(adpater, dataBinding)
-
-    class GoodListChangedListener(adapter: GoodItemAdapter) :
-        ObservableList.OnListChangedCallback<ObservableArrayList<Good>>() {
-
-        private val adapterRef = WeakReference(adapter)
-
-        override fun onChanged(sender: ObservableArrayList<Good>?) {
-            adapterRef.get()?.apply {
-                clearSelected()
-                notifyDataSetChanged()
-            }
-        }
-
-        override fun onItemRangeRemoved(
-            sender: ObservableArrayList<Good>?,
-            positionStart: Int,
-            itemCount: Int
-        ) {
-            adapterRef.get()?.apply {
-                clearSelected()
-                notifyDataSetChanged()
-            }
-        }
-
-        override fun onItemRangeMoved(
-            sender: ObservableArrayList<Good>?,
-            fromPosition: Int,
-            toPosition: Int,
-            itemCount: Int
-        ) {
-            adapterRef.get()?.notifyDataSetChanged()
-        }
-
-        override fun onItemRangeInserted(
-            sender: ObservableArrayList<Good>?,
-            positionStart: Int,
-            itemCount: Int
-        ) {
-            adapterRef.get()?.notifyDataSetChanged()
-        }
-
-        override fun onItemRangeChanged(
-            sender: ObservableArrayList<Good>?,
-            positionStart: Int,
-            itemCount: Int
-        ) {
-            adapterRef.get()?.apply {
-                clearSelected()
-                notifyDataSetChanged()
-            }
-        }
-    }
+    ) : ItemVH(adapter, dataBinding)
 
 
     companion object {
