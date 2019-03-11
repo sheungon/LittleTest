@@ -134,8 +134,8 @@ constructor(
 
         override fun onChanged(sender: ObservableArrayList<Good>?) {
             adapterRef.get()?.apply {
-                notifyDataSetChanged()
                 clearSelected()
+                notifyDataSetChanged()
             }
         }
 
@@ -145,8 +145,8 @@ constructor(
             itemCount: Int
         ) {
             adapterRef.get()?.apply {
-                notifyDataSetChanged()
                 clearSelected()
+                notifyDataSetChanged()
             }
         }
 
@@ -173,8 +173,8 @@ constructor(
             itemCount: Int
         ) {
             adapterRef.get()?.apply {
-                notifyDataSetChanged()
                 clearSelected()
+                notifyDataSetChanged()
             }
         }
     }

@@ -61,6 +61,6 @@ constructor(
     fun addGood() {
         val newGood = Good("A New ${random.nextInt(1000)}", random.nextInt(100) / 10f)
         goodList.add(0, newGood)
-        Log.d("Added new good: ${newGood.name}")
+        Log.d("Added new good: ${newGood.name} $${newGood.price}")
     }
 }
