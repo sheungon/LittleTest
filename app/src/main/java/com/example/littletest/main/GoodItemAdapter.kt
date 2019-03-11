@@ -164,7 +164,7 @@ constructor(
             positionStart: Int,
             itemCount: Int
         ) {
-            adapterRef.get()?.notifyItemRangeInserted(positionStart, itemCount)
+            adapterRef.get()?.notifyDataSetChanged()
         }
 
         override fun onItemRangeChanged(
