@@ -76,9 +76,7 @@ constructor(
             // TODO set item selected
             //goodVH.dataBinding.selected =
         } ?: (holder as? AdsVH)?.let { adsVH ->
-            picasso.load(getRandomAdsUrl())
-                .fit()
-                .into(adsVH.dataBinding.imageView)
+            adsVH.dataBinding.url = getRandomAdsUrl()
         } ?: run {
             Log.wtf("Not possible! Check you codes!")
         }
