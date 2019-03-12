@@ -137,7 +137,7 @@ constructor(
 
     companion object {
 
-        private val ADS_APPEAR_IN_EVERY = 10
+        val ADS_APPEAR_IN_EVERY = 10
 
         private val TYPE_GOOD = 0
         private val TYPE_ADS = 1
