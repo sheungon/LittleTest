@@ -73,10 +73,15 @@ dependencies {
     implementation "com.sotwtm.util:ec-log:$versions.android_ec_log"
 
     // For auto test
-    androidTestImplementation("androidx.test.espresso:espresso-core:$versions.espresso", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.google.code.findbugs', module: 'jsr305'
-    })
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    androidTestImplementation 'androidx.test:core:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.ext:truth:1.1.0'
+    androidTestImplementation 'com.google.truth:truth:0.43'
+    androidTestImplementation 'com.google.truth.extensions:truth-java8-extension:0.43'
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
     androidTestImplementation "com.google.dagger:dagger:$versions.dagger_2"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$versions.dagger_2"
     testImplementation deps.junit
@@ -84,15 +89,10 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$versions.dagger_2"
     androidTestImplementation "org.mockito:mockito-android:$versions.mockito"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
-    androidTestImplementation("com.github.fabioCollini.daggermock:daggermock-kotlin:$versions.dagger_mock", {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    })
-    testImplementation("com.github.fabioCollini.daggermock:daggermock-kotlin:$versions.dagger_mock", {
-        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib'
-    })
+    androidTestImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$versions.dagger_mock"
+    testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$versions.dagger_mock"
     testImplementation "org.powermock:powermock-api-mockito2:$versions.power_mock"
     testImplementation "org.powermock:powermock-module-junit4-rule-agent:$versions.power_mock"
     testImplementation "org.powermock:powermock-module-junit4-rule:$versions.power_mock"
     testImplementation "org.powermock:powermock-module-junit4:$versions.power_mock"
-    testImplementation "androidx.arch.core:core-testing:2.0.0"
 }

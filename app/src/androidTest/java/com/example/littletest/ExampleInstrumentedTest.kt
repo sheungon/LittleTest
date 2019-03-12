@@ -1,12 +1,11 @@
 package com.example.littletest
 
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
-
+import android.app.Application
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -18,7 +17,8 @@ class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.example.littletest", appContext.packageName)
+        val appContext = ApplicationProvider.getApplicationContext<Application>()
+        assertThat(appContext.packageName)
+            .isEqualTo("com.example.littletest")
     }
 }
