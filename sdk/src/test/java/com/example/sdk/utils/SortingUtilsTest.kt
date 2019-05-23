@@ -29,22 +29,6 @@ class SortingUtilsTest {
     @Test
     fun sortingTest() {
 
-        goodList.sortByName(true)
-        for (i in 1 until goodList.size) {
-            Assert.assertTrue(
-                "GoodList not sorted by name in acceding order",
-                goodList[i - 1].name <= goodList[i].name
-            )
-        }
-
-        goodList.sortByName(false)
-        for (i in 1 until goodList.size) {
-            Assert.assertTrue(
-                "GoodList not sorted by name in descending order",
-                goodList[i - 1].name >= goodList[i].name
-            )
-        }
-
         goodList.sortByPrice(true)
         for (i in 1 until goodList.size) {
             Assert.assertTrue(
@@ -58,6 +42,22 @@ class SortingUtilsTest {
             Assert.assertTrue(
                 "GoodList not sorted by price in descending order",
                 goodList[i - 1].price >= goodList[i].price
+            )
+        }
+
+        goodList.sortByName(true)
+        for (i in 1 until goodList.size) {
+            Assert.assertTrue(
+                "GoodList not sorted by name in acceding order",
+                goodList[i - 1].name <= goodList[i].name
+            )
+        }
+
+        goodList.sortByName(false)
+        for (i in 1 until goodList.size) {
+            Assert.assertTrue(
+                "GoodList not sorted by name in descending order",
+                goodList[i - 1].name >= goodList[i].name
             )
         }
     }
