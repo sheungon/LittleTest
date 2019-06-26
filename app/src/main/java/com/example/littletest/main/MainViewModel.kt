@@ -1,12 +1,15 @@
 package com.example.littletest.main
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.littletest.STApplication
 import com.example.sdk.api.GoodService
 import com.example.sdk.model.Good
 import com.sotwtm.util.Log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -23,12 +26,16 @@ class MainViewModel
 constructor(
     application: STApplication,
     activity: MainActivity,
-    val goodService: GoodService
-) {
-    val isLoading = MutableLiveData<Boolean>(false)
-    val random = Random(Date().time)
-    val goodList = MutableLiveData<MutableList<Good>>(ArrayList())
-    val totalPrice = MutableLiveData<Float>(0f)
+    private val goodService: GoodService
+) : ViewModel() {
+    private val random = Random(Date().time)
+    private val loadingTask = MutableLiveData<Job?>()
+    private val goodList = MutableLiveData<MutableList<Good>>(ArrayList())
+
+    val isLoading = Transformations.map(loadingTask) {
+        it != null && !it.isCompleted
+    }
+    val totalPrice = MutableLiveData(0f)
     val adapter = GoodItemAdapter(application, activity, goodList, totalPrice)
 
     fun onCreate() {
@@ -42,12 +49,11 @@ constructor(
         loadData()
     }
 
-    @Synchronized
-    fun loadData() {
-        GlobalScope.launch(Dispatchers.Main) {
+    private fun loadData() {
+        if (isLoading.value == true) return
+        viewModelScope.launch {
             try {
-                isLoading.postValue(true)
-                val list = withContext(Dispatchers.Default) {
+                val list = withContext(Dispatchers.IO) {
                     goodService.getGoodList(0, 20)
                 }
                 goodList.value?.addAll(list)
@@ -55,8 +61,10 @@ constructor(
             } catch (e: Exception) {
                 Log.e("Error on load data", e)
             } finally {
-                isLoading.postValue(false)
+                loadingTask.value = null
             }
+        }.also {
+            loadingTask.value = it
         }
     }
 
