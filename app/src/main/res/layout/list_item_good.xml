@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:checked="@{selected}"
-            android:text="@{good.name}"
+            android:text="@{good}"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
