@@ -39,7 +39,7 @@
             android:id="@+id/good_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"$"+String.valueOf(good.price)}'
+            android:text='@{@string/price_tag(good.price)}'
             android:textColor="@android:color/darker_gray"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
