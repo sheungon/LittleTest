@@ -10,14 +10,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
  */
 
 @BindingMethods(
-    BindingMethod(type = androidx.swiperefreshlayout.widget.SwipeRefreshLayout::class, attribute = "onRefresh", method = "setOnRefreshListener")
+    BindingMethod(type = SwipeRefreshLayout::class, attribute = "onRefresh", method = "setOnRefreshListener")
 )
 object SwipeRefreshLayoutBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["isRefreshing"])
     fun setRefreshing(
-        view: androidx.swiperefreshlayout.widget.SwipeRefreshLayout,
+        view: SwipeRefreshLayout,
         isRefreshing: Boolean
     ) {
         view.isRefreshing = isRefreshing
